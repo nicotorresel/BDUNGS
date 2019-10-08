@@ -18,7 +18,7 @@ public class BDUNGS {
 		}
 	}
 	
-	public boolean ingresarLibro(String ISBN, String categoria, String nombre, double ancho) {
+	public boolean ingresarLibro (String ISBN, String categoria, String nombre, double ancho) {
 		return true;
 	}
 	
@@ -29,9 +29,16 @@ public class BDUNGS {
 		}
 		
 	}
-	public void eliminarLibro(String ISBN) {
+	public void eliminarLibro (String ISBN) {
 		
 	}
+	public void reacomodarCategoria (String categoria) {
+		
+	}
+	public hashMap <String, Integer> verLibrosCategoria (String categoria) {
+		
+	}
+	
 	public double espacioLibre (int numEstante) {
 		return estantes.get(numEstante).getEspacioDisponible();
 	}
