@@ -1,6 +1,7 @@
 package tad_bdungs;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class BDUNGS {
 
@@ -35,8 +36,8 @@ public class BDUNGS {
 	public void reacomodarCategoria (String categoria) {
 		
 	}
-	public hashMap <String, Integer> verLibrosCategoria (String categoria) {
-		
+	public HashMap <String, Integer> verLibrosCategoria (String categoria) {
+		return null;
 	}
 	
 	public double espacioLibre (int numEstante) {
