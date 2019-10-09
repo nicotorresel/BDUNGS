@@ -1,30 +1,61 @@
 package tad_bdungs;
 
+import java.util.HashSet;
+import java.util.Iterator;
+
 public class Estante {
 	private String categoria;
 	private double anchoEstante;
-	private double anchoDisponible;
+	private HashSet <Libro> libros;  // elegi hashset porque no tiene duplicados
 	
 	
 	Estante (double ancho){
 		this.categoria = "";
 		this.anchoEstante = ancho;
-		this.anchoDisponible = ancho;
+		this.libros = new HashSet <Libro>();
 	}
+	
+	// retorna la suma de los anchos de los libros que hay en el estante
+	
+	public double espacioOcupado() {
+		double ret = 0;
+		for (Libro libro : this.libros) {
+			ret = ret + libro.getAncho();
+		}
+		return ret;
+	}
+	
+	//retorna el espacio disponible en el estante
+	
+	public double espacioDisponible() {
+		return this.anchoEstante - espacioOcupado();
+	}
+	// dice si el estante esta vacio
+	//
 	public boolean estaVacio() {
-		return this.anchoEstante==this.anchoDisponible;
+		return this.anchoEstante == espacioOcupado();
 	}
+	
+	// retorna la categoria del estante
+	
+	public String getCategoria () {
+		return this.categoria;
+	}
+	
+	//permite setear la categoria del estante (luego en el TAD BDUNGS voy a modificar para que solo setee si el estante esta vacio.
+	
 	public void setCategoria(String cat) {
 		this.categoria = cat;
 	}
-	
-	public String getCategoria() {
-		return this.categoria;
+	// recorro Hashset libros y armo un Hashmap
+//	public HashMap <String, Integer> librosCategoria () {
+//		HashMap <String, Integer> libros = new HashMap <String, Integer>();
+//		
+//		
+//		return libros;
+//	}
+	public void agregarLibro(Libro libro) {
+		libros.add(libro);
 	}
-	public double getEspacioDisponible() {
-		return this.anchoDisponible; 
-	}
-	public void setEspacioDisponible(double AnchoLibro) {
-		this.anchoDisponible = this.anchoEstante - AnchoLibro;
-	}
+
 }
