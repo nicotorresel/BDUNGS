@@ -9,7 +9,7 @@ public class Estante {
 	
 	
 	Estante (double ancho){
-		this.categoria = "";
+		this.categoria = null;
 		this.anchoEstante = ancho;
 		this.libros = new HashSet <Libro>();
 	}
@@ -27,7 +27,12 @@ public class Estante {
 	//retorna el espacio disponible en el estante
 	
 	public double espacioDisponible() {
-		return this.anchoEstante - espacioOcupado();
+		if (this.categoria.equals(null)) {
+			throw new RuntimeException ("El estante todavia no esta rotulado");
+		}
+		else {
+			return this.anchoEstante - espacioOcupado();			
+		}
 	}
 	// dice si el estante esta vacio
 	//
@@ -39,6 +44,9 @@ public class Estante {
 	
 	public String getCategoria () {
 		return this.categoria;
+	}
+	public int cantLibros() {
+		return libros.size();
 	}
 	
 	public HashSet getLibros() {

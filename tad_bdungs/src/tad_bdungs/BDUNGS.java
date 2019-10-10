@@ -79,14 +79,31 @@ public class BDUNGS {
 		
 		
 	}
-	//muestra los nombres de los libros de una categoria y la cantidad de esos libros.
-	public HashMap <String, Integer> verLibrosCategoria (String categoria) {
-		
+	
+	public int cantLibros (String categoria) {
+		int cant = 0;
 		for (Estante estante : this.estantes) {
-			if (estante.getCategoria().equals(categoria){
-				
+			if (estante.getCategoria().equals(categoria)) {
+				cant+= estante.cantLibros();
 			}
 		}
+		return cant;
+	}
+	
+	//muestra los ISBN de los libros de una categoria y la cantidad de libros en esa categoria.
+	// puede haber mas de un estante con la misma categoria
+	// si no hay estante lanza una excepcion.
+	
+	public HashMap <String, Integer> verLibrosCategoria (String categoria) {
+		HashMap<String, Integer> ejemplares = new HashMap<String, Integer>();
+		boolean ret = false;
+		for (Estante estante : this.estantes) {
+			for (Libro libro : estante.getLibros()) {
+				if (libro.getCategoria().equals(categoria)) {
+					ejemplares.put(libro.getISBN(), this.cantLibros(categoria));
+				}
+			}
+		}	
 		return null;
 	}
 	
