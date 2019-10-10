@@ -1,7 +1,6 @@
 package tad_bdungs;
 
 import java.util.HashSet;
-import java.util.Iterator;
 
 public class Estante {
 	private String categoria;
@@ -40,6 +39,10 @@ public class Estante {
 	
 	public String getCategoria () {
 		return this.categoria;
+	}
+	
+	public HashSet getLibros() {
+		return this.libros;
 	}
 	
 	//permite setear la categoria del estante (luego en el TAD BDUNGS voy a modificar para que solo setee si el estante esta vacio.

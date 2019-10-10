@@ -2,6 +2,7 @@ package tad_bdungs;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 
 public class BDUNGS {
 
@@ -58,13 +59,24 @@ public class BDUNGS {
 	}
 	
 	//En este metodo tengo que usar iteradores para poder eliminar libro de un estante
+	// Recorro cada estante con for each y dentro de cada estante uso un iterador para buscar el libro con el mismo ISBN. 
+	//cuando encuentro el libro con el mismo ISBN lo remuevo.
 	
 	public void eliminarLibro (String ISBN) {
-		
+		for (Estante estante : this.estantes) {
+			Iterator<Libro> it = estante.getLibros().iterator();
+			while (it.hasNext()) {
+				String id = it.next().getISBN();
+				if (id.equals(ISBN)) {
+					it.remove();
+				}
+			}
+		}
 		
 		
 	}
 	public void reacomodarCategoria (String categoria) {
+		
 		
 	}
 	//muestra los nombres de los libros de una categoria y la cantidad de esos libros.
