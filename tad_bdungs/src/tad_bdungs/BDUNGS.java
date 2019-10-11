@@ -111,4 +111,42 @@ public class BDUNGS {
 	public double espacioLibre (int numEstante) {
 		return estantes.get(numEstante).espacioDisponible();
 	}	
+	
+//---------------------------creo un arraylist con los libros de categoria que le paso------------------------------------------------------------------------------
+	
+	public ArrayList<String> isbnlibros (String categoria){
+		ArrayList <String> ret = new ArrayList <String>();
+		ArrayList <Libro> lib = new ArrayList <Libro>();
+		for (Estante estantes : this.estantes) {
+			if (estantes.getCategoria().equals(categoria)) {
+				ret.addAll(estantes.getLibros());
+			}
+		}
+		for (Libro libro : lib) {
+			ret.add(libro.getISBN());
+		}
+		return ret;
+	}
+	
+//-----------------------------uso el metodo anterior con la lista de libros de la categoria que le paso---------------------------------------------------------------------------	
+	public HashMap <String, Integer> verLibrosCategoria (String categoria) {
+		HashMap <String, Integer> ret = new HashMap <String, Integer>();
+		ArrayList<String> libros = isbnlibros(categoria);
+		for (int i = 0; i<libros.size(); i++) {
+			int cont = 0;
+			String isbn =libros.get(i);
+			for (int j = 0; j<libros.size(); j++) {
+				if (libros.get(i).equals(libros.get(j))) {
+					cont++;
+				}
+			}
+			ret.put(isbn, cont);
+		}
+		return ret;
+		
+		
+		
+	}
+	
+	
 }

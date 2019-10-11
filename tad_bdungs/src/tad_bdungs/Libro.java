@@ -12,7 +12,7 @@ public class Libro {
 		this.categoria = categ;
 		this.nombre = name;
 		this.anchoLibro = width;
-		
+	
 	}
 	
 	public String getISBN () {
