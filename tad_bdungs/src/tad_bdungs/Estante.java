@@ -1,72 +1,70 @@
 package tad_bdungs;
 
-import java.util.HashSet;
+import java.util.ArrayList;
 
 public class Estante {
 	private String categoria;
 	private double anchoEstante;
-	private HashSet <Libro> libros;  // elegi hashset porque no tiene duplicados
+	private ArrayList <Libro> libros;  
 	
 	
 	Estante (double ancho){
-		this.categoria = null;
+		this.categoria = "";
 		this.anchoEstante = ancho;
-		this.libros = new HashSet <Libro>();
+		this.libros = new ArrayList <Libro>();
 	}
 	
 	// retorna la suma de los anchos de los libros que hay en el estante
 	
 	public double espacioOcupado() {
 		double ret = 0;
-		for (Libro libro : this.libros) {
-			ret = ret + libro.getAncho();
+		if (this.libros.isEmpty()) {
+			return ret;
 		}
-		return ret;
+		else {
+			for (Libro libro : this.libros) {
+				ret = ret + libro.getAncho();
+			}
+			return ret;
+		}
 	}
-	
 	//retorna el espacio disponible en el estante
 	
 	public double espacioDisponible() {
-		if (this.categoria.equals(null)) {
+		if (this.categoria.equals("")) {
 			throw new RuntimeException ("El estante todavia no esta rotulado");
 		}
 		else {
 			return this.anchoEstante - espacioOcupado();			
 		}
 	}
-	// dice si el estante esta vacio
-	//
+	
 	public boolean estaVacio() {
-		return this.anchoEstante == espacioOcupado();
+		return libros.isEmpty();
 	}
 	
-	// retorna la categoria del estante
+// retorna la categoria del estante
 	
 	public String getCategoria () {
 		return this.categoria;
 	}
+
 	public int cantLibros() {
-		return libros.size();
+		return this.libros.size();
 	}
 	
-	public HashSet getLibros() {
+	public ArrayList getLibros() {
 		return this.libros;
 	}
 	
-	//permite setear la categoria del estante (luego en el TAD BDUNGS voy a modificar para que solo setee si el estante esta vacio.
+//permite setear la categoria del estante (luego en el TAD BDUNGS voy a modificar para que solo setee si el estante esta vacio.
 	
 	public void setCategoria(String cat) {
 		this.categoria = cat;
 	}
-	// recorro Hashset libros y armo un Hashmap
-//	public HashMap <String, Integer> librosCategoria () {
-//		HashMap <String, Integer> libros = new HashMap <String, Integer>();
-//		
-//		
-//		return libros;
-//	}
+
 	public void agregarLibro(Libro libro) {
 		libros.add(libro);
 	}
-
+	
 }
