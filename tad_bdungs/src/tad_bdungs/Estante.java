@@ -13,7 +13,7 @@ public class Estante {
 	Estante (double ancho){
 		this.categoria = "";
 		this.anchoEstante = ancho;
-		this.espacio = espacio;
+		this.espacio = ancho;
 		this.libros = new ArrayList <Libro>();
 	}
 	
@@ -27,7 +27,7 @@ public class Estante {
 		return false;
 	}
 	
-	public double getEspacio() {
+	public double espacioLibre() {
 		if (this.categoria=="") {
 			throw new RuntimeException("El estante no esta rotulado por lo tanto no hay libros");
 		}
@@ -65,31 +65,36 @@ public class Estante {
 //permite setear la categoria del estante (luego en el TAD BDUNGS voy a modificar para que solo setee si el estante esta vacio.
 	
 	public void setCategoria(String cat) {
-		if (!this.estaVacio()) {
-			throw new RuntimeException("El estante no se puede rotular porque continene libros");
-		}
-		else {
-			this.categoria = cat;
-		}
+		this.categoria = cat;
 	}
 
 	public void agregarLibro(Libro libro) {
 		if (this.hayEspacio(libro.getAncho())) { 
 			libros.add(libro);
-			
+			this.setMenosEspacio(libro.getAncho());
 		}
 		
 	}
 	
-	public void eleminiarLibro(String ISBN) {
-		Iterator<Libro> it = libros.iterator();
-		while (it.hasNext()) {
-			String id = it.next().getISBN();
-			if (id.equals(ISBN)) {
-				it.remove();
+	public boolean existeLibro(String ISBN) {
+		for (Libro libro : this.libros) {
+			if (libro.getISBN().equals(ISBN)) {
+				return true;
 			}
 		}
-		
+		return false;
+	}
+	
+	public void eleminiarLibro(String ISBN) {
+		if (this.existeLibro(ISBN)) {
+			Iterator<Libro> it = libros.iterator();
+			while (it.hasNext()) {
+				String id = it.next().getISBN();
+				if (id.equals(ISBN)) {
+					it.remove();
+			}
+			}
+		}
 	}
 	
 }

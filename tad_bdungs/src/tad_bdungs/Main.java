@@ -20,6 +20,7 @@ public class Main {
 		bd.eliminarLibro("9389557783457");
 		bd.rotularEstante("Analisis Matematico", 2);
 		System.out.println(bd);
+		System.out.print(bd.espacioLibre(1));
 
 		
 //		Libro lib1 = new Libro("1234","computaciaon","holwdfsfa", 53);

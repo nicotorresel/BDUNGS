@@ -73,7 +73,12 @@ public class BDUNGS {
 	//rotulo el estante pasado por parametro siempre que se encuentre vacio (sin libros)
 	
 	public void rotularEstante (String rotulo, int numEstante) {
-		this.estantes.get(numEstante).setCategoria(rotulo);
+		if (!this.estantes.get(numEstante).estaVacio()) {
+			throw new RuntimeException ("El estante que quiere rotular contiene libros y no se puede rotular");
+		}
+		else {
+			this.estantes.get(numEstante).setCategoria(rotulo);
+		}
 	}
 //--------------------------------------------------------------------------------------------------------	
 	//En este metodo tengo que usar iteradores para poder eliminar libro de un estante
@@ -105,7 +110,7 @@ public class BDUNGS {
 //----------------------------------------------------------------------------------------------------------
 	
 	public double espacioLibre (int numEstante) {
-		return estantes.get(numEstante).getEspacio();
+		return estantes.get(numEstante).espacioLibre();
 	}	
 	
 //---------------------------creo un arraylist con los libros de categoria que le paso------------------------------------------------------------------------------
