@@ -58,7 +58,7 @@ public class Estante {
 		return this.libros.size();
 	}
 	
-	public ArrayList getLibros() {
+	public ArrayList <Libro> getLibros() {
 		return this.libros;
 	}
 	
@@ -85,8 +85,19 @@ public class Estante {
 		return false;
 	}
 	
+	public Libro libroConISBN (String ISBN) {
+		Libro ret =null;
+		for (Libro libro : this.libros) {
+			if (libro.getISBN().equals(ISBN)) {
+				ret = libro;
+			}
+		}
+		return ret;
+	}
+	
 	public void eleminiarLibro(String ISBN) {
 		if (this.existeLibro(ISBN)) {
+			this.setMasEspacio(this.libroConISBN(ISBN).getAncho());
 			Iterator<Libro> it = libros.iterator();
 			while (it.hasNext()) {
 				String id = it.next().getISBN();

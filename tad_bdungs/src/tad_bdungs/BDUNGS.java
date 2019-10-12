@@ -113,41 +113,35 @@ public class BDUNGS {
 		return estantes.get(numEstante).espacioLibre();
 	}	
 	
-//---------------------------creo un arraylist con los libros de categoria que le paso------------------------------------------------------------------------------
+//---------------------------creo un arraylist para traer todos los libros de esa categoria-----------------------------------------------------------------------------
 	
-	public ArrayList<String> isbnlibros (String categoria){
-		ArrayList <String> ret = new ArrayList <String>();
-		ArrayList <Libro> lib = new ArrayList <Libro>();
+	public ArrayList<Libro> librosDeCategoria (String categoria){
+		ArrayList <Libro> ret = new ArrayList <Libro>();
 		for (Estante estantes : this.estantes) {
-			if (estantes.getCategoria().equals(categoria)) {
-				ret.addAll(estantes.getLibros());
+			for (Libro libro : estantes.getLibros()) {
+				if (libro.getCategoria().equals(categoria)) {
+					ret.add(libro);
+				}
 			}
-		}
-		for (Libro libro : lib) {
-			ret.add(libro.getISBN());
 		}
 		return ret;
 	}
 	
 //-----------------------------uso el metodo anterior con la lista de libros de la categoria que le paso---------------------------------------------------------------------------	
+
 	public HashMap <String, Integer> verLibrosCategoria (String categoria) {
 		HashMap <String, Integer> ret = new HashMap <String, Integer>();
-		ArrayList<String> libros = isbnlibros(categoria);
-		for (int i = 0; i<libros.size(); i++) {
+		ArrayList <Libro> lib = this.librosDeCategoria(categoria);
+		for ( int i = 0; i<lib.size(); i++) {
 			int cont = 0;
-			String isbn =libros.get(i);
-			for (int j = 0; j<libros.size(); j++) {
-				if (libros.get(i).equals(libros.get(j))) {
+			String id = "";
+			for (int j = 0; j<lib.size(); j++) {
+				if (lib.get(0).getISBN().equals(lib.get(j).getISBN())) {
 					cont++;
 				}
 			}
-			ret.put(isbn, cont);
+			ret.put(id, cont);
 		}
 		return ret;
-		
-		
-		
 	}
-	
-	
 }
