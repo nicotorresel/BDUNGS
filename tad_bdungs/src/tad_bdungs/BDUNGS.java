@@ -2,12 +2,16 @@ package tad_bdungs;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 
 public class BDUNGS {
 	
 	private ArrayList<Estante> estantes;
 
-//--------------------------------CONSTRUCTOR---------------------------------------------------------------------------------------------	
+//----------------------------------------------------------------------------------------------------------------------------------------	
+//--------------------------------CONSTRUCTOR---------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------------------------------------------
 
 	BDUNGS (int cantEstantes, double anchoEstantes){
 
@@ -70,13 +74,54 @@ public class BDUNGS {
 			estante.eleminiarLibro(ISBN);
 		}
 	}
-	
+//-------------------------------------------------------------------------------------------------------------------------------------------------------	
 	//reacomodar categoria:
 	
-	public void reacomodarCategoria (String categoria) {
+	public int reacomodarCategoria (String categoria) {
+		int ret = 0;
+		double space = 00;
+		int indice = 0;
+		ArrayList<Libro> libros = new ArrayList<Libro>();
 		
+		//recorro los estantes y me fijo cual estante de esa categoria es el que tiene mayor espacio libre.
+		//cuando lo encuentro guardo el index del estante y el espacio vacio que tiene el mismo en las variables space e indice.
+		for (int i = 0; i<this.tamanio();i ++) {
+			if (this.estantes.get(i).getCategoria().equals(categoria) && this.estantes.get(i).espacioLibre()>space) {
+				space = this.estantes.get(i).espacioLibre();
+				indice = i;
+			}
+		}
+		
+		// recorro el estante que tiene mas espacio de esa categoria y guardo cada libro en un nuevo arrayList
+		// el estante se ubico previamente con la variable indice.
+		for (Libro libro : this.estantes.get(indice).getLibros()) {
+			libros.add(libro);
+		}
+		
+		// por ultimo recorro cada libro del nuevo arrayList (estante mas vacio de la categoria solicitada) y me fijo 
+		// si ese libro entra en alguno de los otros estantes de esa categoria. Si se puede ubicar lo agrego y luego elimino el libro del estante.
+		// no hay conflicto de concurrencia porque estoy recorriendo el nuevo arrayList creado y lo uso como iterador.
+		for (Libro lib : libros) {
+			for (int j=0; j<this.tamanio();j++) {
+				if (this.estantes.get(j).getCategoria().equals(categoria) && j!=indice && this.estantes.get(j).hayEspacio(lib.getAncho())) {
+					this.estantes.get(j).agregarLibro(lib);
+					this.estantes.get(indice).eleminiarLibro(lib.getISBN());
+				}
+			}
+		}
+		
+		// por ultimo recorro los estantes de la categoria solicitada y si alguno esta vacio lo acumulo en la variable ret para luego retornar ese valor.
+		for (Estante estante : this.estantes) {
+			if (estante.getCategoria().equals(categoria) && estante.estaVacio()) {
+				ret++;
+			}
+		}
+		return ret;
 	}
-	
+//--------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
 	// verLibrosCategoria:
 	// devuelve un hashmap con los ISBN (KEY) de los libros de la categoria pasada por parametro,
 	// muestra ademas la cantidad de copias de ese libro (VALUE).
@@ -94,7 +139,7 @@ public class BDUNGS {
 				int cont = 0;
 				String id = "";
 				for (int j = 0; j<lib.size(); j++) {
-					if (lib.get(0).getISBN().equals(lib.get(j).getISBN())) {
+					if (lib.get(i).getISBN().equals(lib.get(j).getISBN())) {
 						cont++;
 					}
 				}
@@ -167,5 +212,6 @@ public class BDUNGS {
 			}
 		}
 		return ret;
-	}
+	}		
+	
 }	
