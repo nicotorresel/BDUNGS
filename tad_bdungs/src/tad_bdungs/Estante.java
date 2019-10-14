@@ -19,6 +19,7 @@ public class Estante {
 	
 	
 	//validacion estante:
+	// valida si hay espacio en el estante pasando por parametro el ancho de un libro.
 	
 	public boolean hayEspacio(double anchoLibro) {
 		if (anchoLibro<this.espacio) {
@@ -27,6 +28,8 @@ public class Estante {
 		return false;
 	}
 	
+	// retorna el espacio libre del estante, si no esta rotulado lanza una excepcion.
+	
 	public double espacioLibre() {
 		if (this.categoria=="") {
 			throw new RuntimeException("El estante no esta rotulado por lo tanto no hay libros");
@@ -34,9 +37,13 @@ public class Estante {
 		return this.espacio;
 	}
 	
+	// setea el espacio libre, agrega mas espacio tomando como parametro el ancho del libro.
+	
 	public void setMasEspacio(double anchoLibro) {
 		this.espacio = this.espacio+anchoLibro; 
 	}
+	
+	// idem metodo anterior pero quita espacio en el estante
 	
 	public void setMenosEspacio(double anchoLibro) {
 		if (this.hayEspacio(anchoLibro)) {
@@ -44,30 +51,38 @@ public class Estante {
 		}
 	}
 		
+	// retorna true si esta vacio el estante y false si esta con libros.
+	
 	public boolean estaVacio() {
 		return libros.isEmpty();
 	}
 	
-// retorna la categoria del estante
+	// retorna la categoria del estante
 	
 	public String getCategoria () {
 		return this.categoria;		
 	}	
+	
+	// retorna la cantidad de libros que tiene el estante
 
 	public int cantLibros() {
 		return this.libros.size();
 	}
 	
+	// getter de los libros del estante.
+	
 	public ArrayList <Libro> getLibros() {
 		return this.libros;
 	}
 	
-//permite setear la categoria del estante (luego en el TAD BDUNGS voy a modificar para que solo setee si el estante esta vacio.
+	// permite setear la categoria del estante (luego en el TAD BDUNGS voy a modificar para que solo setee si el estante esta vacio).
 	
 	public void setCategoria(String cat) {
 		this.categoria = cat;
 	}
 
+	// agrega un libro al estante (pasado por parametro). Ademas setea el espacio del estante.
+	
 	public void agregarLibro(Libro libro) {
 		if (this.hayEspacio(libro.getAncho())) { 
 			libros.add(libro);
@@ -75,6 +90,8 @@ public class Estante {
 		}
 		
 	}
+	
+	// retorna true si existe libro con ese ISBN en el estante y false si no ecuentra ese ISBN en el estante.
 	
 	public boolean existeLibro(String ISBN) {
 		for (Libro libro : this.libros) {
@@ -84,6 +101,8 @@ public class Estante {
 		}
 		return false;
 	}
+	
+	// paso por parametro un ISBN y me devuelve el objeto Libro que posee ese ISBN dentro del estante.
 	
 	public Libro libroConISBN (String ISBN) {
 		Libro ret =null;
@@ -95,6 +114,8 @@ public class Estante {
 		return ret;
 	}
 	
+	// recorro los libros con iteradores y elimino el libro si es que existe (ademas agrego espacio al estante si se elimina).
+	
 	public void eleminiarLibro(String ISBN) {
 		if (this.existeLibro(ISBN)) {
 			this.setMasEspacio(this.libroConISBN(ISBN).getAncho());
@@ -103,7 +124,7 @@ public class Estante {
 				String id = it.next().getISBN();
 				if (id.equals(ISBN)) {
 					it.remove();
-			}
+				}
 			}
 		}
 	}
