@@ -45,10 +45,9 @@ public class BDUNGS {
 	
 
 	public boolean ingresarLibro (String ISBN, String categoria, String nombre, double ancho) {
-		// inicio una variable de control en true
+
 		Libro libro = new Libro (ISBN, categoria,nombre,ancho);
-		boolean ret = true;		
-		
+			
 		if (!this.exiteCategoria(categoria)) {
 			throw new RuntimeException("no existe categoria para agregar el libro");
 		}
@@ -59,13 +58,10 @@ public class BDUNGS {
 						estante.agregarLibro(libro);
 						return true;
 					}
-					else {
-						ret = false;
-					}
 				}
 			}
 		}
-		return ret;
+		return false;
 	}	
 
 //--------------------------------------------------------------------------------------------------------	
