@@ -5,14 +5,12 @@ import java.util.Iterator;
 
 public class Estante {
 	private String categoria;
-	private double anchoEstante;
 	private double espacio;
 	private ArrayList <Libro> libros;  
 	
 	
 	Estante (double ancho){
 		this.categoria = "";
-		this.anchoEstante = ancho;
 		this.espacio = ancho;
 		this.libros = new ArrayList <Libro>();
 	}
