@@ -129,4 +129,14 @@ public class Estante {
 		}
 	}
 	
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("Categoria: ").append(this.categoria).append(", Libros: ");
+		for (Libro libro : this.libros) {
+			sb.append(libro.getISBN()).append(" / ");
+		}
+		return sb.toString();
+	}
+	
 }

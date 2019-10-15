@@ -210,6 +210,17 @@ public class BDUNGS {
 			}
 		}
 		return ret;
-	}		
+	}	
+	
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		int cont = 0;
+		for (Estante estante : this.estantes) {
+			sb.append("ESTANTE N°: ").append(cont).append(", ").append(estante.toString()).append("\n");
+			cont++;
+		}
+		return sb.toString();
+	}
 	
 }	
