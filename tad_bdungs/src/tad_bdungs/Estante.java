@@ -14,10 +14,11 @@ public class Estante {
 		this.espacio = ancho;
 		this.libros = new ArrayList <Libro>();
 	}
-	
+
 	
 	//validacion estante:
 	// valida si hay espacio en el estante pasando por parametro el ancho de un libro.
+	
 	
 	public boolean hayEspacio(double anchoLibro) {
 		if (anchoLibro<this.espacio) {
@@ -26,12 +27,18 @@ public class Estante {
 		return false;
 	}
 	
+	// validacion si estante esta rotulado:
+	
+	public boolean estaRotulado() {
+		if (this.categoria.equals("")) {
+			return false;
+		}
+		return true;
+	}
+	
 	// retorna el espacio libre del estante, si no esta rotulado lanza una excepcion.
 	
 	public double espacioLibre() {
-		if (this.categoria=="") {
-			throw new RuntimeException("El estante no esta rotulado por lo tanto no hay libros");
-		}
 		return this.espacio;
 	}
 	
@@ -63,9 +70,9 @@ public class Estante {
 	
 	// retorna la cantidad de libros que tiene el estante
 
-	public int cantLibros() {
-		return this.libros.size();
-	}
+//	public int cantLibros() {
+//		return this.libros.size();
+//	}
 	
 	// getter de los libros del estante.
 	

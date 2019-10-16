@@ -22,9 +22,9 @@ public class Libro {
 	public String getCategoria() {
 		return this.categoria;
 	}
-	public String getNombre() {
-		return this.nombre;
-	}
+//	public String getNombre() {
+//		return this.nombre;
+//	}
 	public double getAncho() {
 		return this.anchoLibro;
 	}

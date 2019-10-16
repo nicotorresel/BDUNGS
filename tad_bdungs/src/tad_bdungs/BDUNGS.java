@@ -11,7 +11,7 @@ public class BDUNGS {
 //--------------------------------CONSTRUCTOR---------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------------------------------------------
 
-	BDUNGS (int cantEstantes, double anchoEstantes){
+	public BDUNGS (int cantEstantes, double anchoEstantes){
 
 		this.estantes = new ArrayList<Estante>();
 		
@@ -32,7 +32,7 @@ public class BDUNGS {
 	public boolean ingresarLibro (String ISBN, String categoria, String nombre, double ancho) {
 		
 		Libro libro = new Libro (ISBN, categoria,nombre,ancho);
-		
+
 		if (!this.exiteCategoria(categoria)) {
 			throw new RuntimeException("no existe categoria para agregar el libro");
 		}
@@ -89,7 +89,7 @@ public class BDUNGS {
 				indice = i;
 			}
 		}
-		
+		 
 		// recorro el estante que tiene mas espacio de esa categoria y guardo cada libro en un nuevo arrayList
 		// el estante se ubico previamente con la variable indice.
 		for (Libro libro : this.estantes.get(indice).getLibros()) {
@@ -127,12 +127,12 @@ public class BDUNGS {
 	// asi me saco el problema de los estantes a recorrer)
 	
 	public HashMap <String, Integer> verLibrosCategoria (String categoria) {
+		HashMap <String, Integer> ret = new HashMap <String, Integer>();
+		ArrayList <Libro> lib = this.librosDeCategoria(categoria);
 		if (!this.exiteCategoria(categoria)) {
 			throw new RuntimeException("No existe la categoria"+ categoria);
 		}
 		else {
-			HashMap <String, Integer> ret = new HashMap <String, Integer>();
-			ArrayList <Libro> lib = this.librosDeCategoria(categoria);
 			for ( int i = 0; i<lib.size(); i++) {
 				int cont = 0;
 				String id = "";
@@ -149,9 +149,15 @@ public class BDUNGS {
 	
 	// espacioLibre:
 	// muestra el espacio libre de un estante, pasando el numero de estante por parametro.
+	// si el estante no esta rotulado tira una excepcion
 	
 	public double espacioLibre (int numEstante) {
-		return estantes.get(numEstante).espacioLibre();
+		if (!this.estantes.get(numEstante).estaRotulado()) {
+			throw new RuntimeException("El estante no esta rotulado por lo tanto no hay libros");
+		}
+		else {
+			return this.estantes.get(numEstante).espacioLibre();
+		}
 	}	
 
 	
@@ -159,12 +165,6 @@ public class BDUNGS {
 //---------------------------------METODOS AUXILIARES USADOS PARA LOS METODOS PRINCIPALES---------------------------------------------------------------
 //------------------------------------------------------------------------------------------------------------------------------------------------------	
 	
-	//getter que devuelve el arraylist de estantes.
-	
-	public ArrayList<Estante> getEstantes(){
-		return this.estantes;
-	}
-//--------------------------------------------------------------------------------------------------------	
 
 	//devuelve la cantidad de estantes de la biblioteca
 	
@@ -184,18 +184,6 @@ public class BDUNGS {
 		return false;
 	}
 			
-//--------------------------------------------------------------------------------------------------------	
-	// dice la cantidad de libros que tiene una categoria pasada por parametro.
-	
-	public int cantLibros (String categoria) {
-		int cant = 0;
-		for (Estante estante : this.estantes) {
-			if (estante.getCategoria().equals(categoria)) {
-				cant+= estante.cantLibros();
-			}
-		}
-		return cant;
-	}
 	
 //--------------------------------------------------------------------------------------------------------
 	// creo un arrayList con todos los libros que existen de una categoria pasada por parametro
