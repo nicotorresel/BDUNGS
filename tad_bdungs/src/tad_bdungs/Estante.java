@@ -44,13 +44,13 @@ public class Estante {
 	
 	// setea el espacio libre, agrega mas espacio tomando como parametro el ancho del libro.
 	
-	public void setMasEspacio(double anchoLibro) {
+	private void setMasEspacio(double anchoLibro) {
 		this.espacio = this.espacio+anchoLibro; 
 	}
 	
 	// idem metodo anterior pero quita espacio en el estante
 	
-	public void setMenosEspacio(double anchoLibro) {
+	private void setMenosEspacio(double anchoLibro) {
 		if (this.hayEspacio(anchoLibro)) {
 			this.espacio = this.espacio-anchoLibro;
 		}
