@@ -17,7 +17,7 @@ public class Main {
 		System.out.println(bd);						// imprimo y el libro computacion eliminado ya no aparece en la biblioteca
 		bd.reacomodarCategoria("Computacion");		// reacomodo la categoria Computacion y se reacomodan todos los libros en el estante con mas espacio.	
 		System.out.println(bd);						// imprimo biblioteca reacomodada
-		System.out.println(bd.espacioLibre(4));
+		System.out.println("el espacio libre del estante n4 es: "+ bd.espacioLibre(4));
 		bd.eliminarLibro("​9389557783457​");
 		bd.rotularEstante("​Análisis Matemático​", 2);
 		//System.out.print(bd);

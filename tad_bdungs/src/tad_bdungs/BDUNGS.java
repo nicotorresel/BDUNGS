@@ -32,8 +32,7 @@ public class BDUNGS {
 	public boolean ingresarLibro (String ISBN, String categoria, String nombre, double ancho) {
 		
 		Libro libro = new Libro (ISBN, categoria,nombre,ancho);
-
-		if (!this.exiteCategoria(categoria)) {
+		if (!this.existeCategoria(categoria)) {
 			throw new RuntimeException("no existe categoria para agregar el libro");
 		}
 		else {
@@ -45,8 +44,8 @@ public class BDUNGS {
 					}
 				}
 			}
+			return false;
 		}
-		return false;
 	}	
 
 	//rotular estante:
@@ -129,15 +128,16 @@ public class BDUNGS {
 	public HashMap <String, Integer> verLibrosCategoria (String categoria) {
 		HashMap <String, Integer> ret = new HashMap <String, Integer>();
 		ArrayList <Libro> lib = this.librosDeCategoria(categoria);
-		if (!this.exiteCategoria(categoria)) {
+		if (!this.existeCategoria(categoria)) {
 			throw new RuntimeException("No existe la categoria"+ categoria);
 		}
 		else {
 			for ( int i = 0; i<lib.size(); i++) {
-				int cont = 0;
+				Integer cont = 0;
 				String id = "";
 				for (int j = 0; j<lib.size(); j++) {
 					if (lib.get(i).getISBN().equals(lib.get(j).getISBN())) {
+						id = lib.get(i).getISBN();
 						cont++;
 					}
 				}
@@ -175,7 +175,7 @@ public class BDUNGS {
 //--------------------------------------------------------------------------------------------------------	
 	// boolean que devuelve si existe una categoria pasada por parametro dentro de la biblioteca
 	
-	public boolean exiteCategoria(String categoria) {
+	public boolean existeCategoria(String categoria) {
 		for (Estante estante : this.estantes) {
 			if (estante.getCategoria().equals(categoria)) {
 				return true;
