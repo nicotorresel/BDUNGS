@@ -28,7 +28,7 @@ public class BDUNGS {
 	
 	//ingresar libro: ingresa un libro y si no existe categoria para ingresarlo retorna un excepcion.
 	// ademas retorna true si lo ingresó y si no hay espacio para ingresarlo retorna false.
-	
+
 	public boolean ingresarLibro (String ISBN, String categoria, String nombre, double ancho) {
 		
 		Libro libro = new Libro (ISBN, categoria,nombre,ancho);
@@ -79,6 +79,10 @@ public class BDUNGS {
 		double space = 00;
 		int indice = 0;
 		ArrayList<Libro> libros = new ArrayList<Libro>();
+		
+		if (!this.existeCategoria(categoria)) {
+			throw new RuntimeException ("No existe categoria "+categoria);
+		}
 		
 		//recorro los estantes y me fijo cual estante de esa categoria es el que tiene mayor espacio libre.
 		//cuando lo encuentro guardo el index del estante y el espacio vacio que tiene el mismo en las variables space e indice.
